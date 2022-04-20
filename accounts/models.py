@@ -1,5 +1,17 @@
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, UserManager
 from django.db import models
+
+
+class CustomUserManager(UserManager):
+
+    def get_query_set(self):
+        return super(
+            CustomUserManager,
+            self
+        ).get_query_set(
+        ).filter(
+            is_active=True
+        )
 
 
 class CustomUser(AbstractUser):
@@ -22,3 +34,4 @@ class CustomUser(AbstractUser):
     USERNAME_FIELD = 'email'
     EMAIL_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
+
