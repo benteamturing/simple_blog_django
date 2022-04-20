@@ -85,7 +85,7 @@ WSGI_APPLICATION = 'simple_blog_django.wsgi.application'
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
 AUTHENTICATION_BACKENDS = (
-    ('accounts.auth_backends.EmailModelBackend'),
+    'accounts.auth_backends.EmailModelBackend',
 )
 SITE_ID = 1
 
