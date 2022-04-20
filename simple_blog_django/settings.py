@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+import accounts.apps
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -20,7 +22,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-bzwf15kwimv0laj@-_!*k!_z^i&p1llzn2b0asn4q(&x=)%&_+'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -37,6 +38,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # apps
+    'accounts.apps.AccountsConfig',
+    'profiles.apps.ProfilesConfig',
+    'tags.apps.TagsConfig',
+    'posts.apps.PostsConfig',
+    'comments.apps.CommentsConfig',
+
+    # drf
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
