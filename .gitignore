@@ -1,1 +1,8 @@
 secrets.json
+.idea
+db.sqlite3
+__pycache__
+*.pyc
+venv
+migrations
+.python-version
