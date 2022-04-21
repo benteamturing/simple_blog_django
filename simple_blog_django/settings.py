@@ -4,7 +4,7 @@ import sys
 from datetime import timedelta
 from pathlib import Path
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+# region SECRET_KEY
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Secret Key 설정
@@ -14,13 +14,15 @@ SECRET_BASE_FILE = os.path.join(BASE_DIR, 'secrets.json')
 secrets = json.loads(open(SECRET_BASE_FILE).read())
 for key, value in secrets.items():
     setattr(sys.modules[__name__], key, value)
+# endregion
 
+# region DEBUG
 DEBUG = True
 
 ALLOWED_HOSTS = []
+# endregion
 
-
-# Application definition
+# region Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -33,10 +35,10 @@ INSTALLED_APPS = [
 
     # apps
     'accounts.apps.AccountsConfig',
-    'profiles.apps.ProfilesConfig',
-    'tags.apps.TagsConfig',
-    'posts.apps.PostsConfig',
-    'comments.apps.CommentsConfig',
+    #'profiles.apps.ProfilesConfig',
+    #'tags.apps.TagsConfig',
+    #'posts.apps.PostsConfig',
+    #'comments.apps.CommentsConfig',
 
     # drf
     'rest_framework',
@@ -50,8 +52,13 @@ INSTALLED_APPS = [
     # django-allauth
     'allauth',
     'allauth.account',
-]
 
+    # storages
+    'storages'
+]
+# endregion
+
+# region MIDDLEWARE URLConf
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -63,7 +70,9 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'simple_blog_django.urls'
+# endregion
 
+# region TEMPLATES
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -80,9 +89,13 @@ TEMPLATES = [
         },
     },
 ]
+# endregion
 
+# region WSGI
 WSGI_APPLICATION = 'simple_blog_django.wsgi.application'
+# endregion
 
+# region AUTH
 AUTH_USER_MODEL = 'accounts.CustomUser'
 AUTHENTICATION_BACKENDS = (
     'accounts.auth_backends.EmailModelBackend',
@@ -105,7 +118,15 @@ SIMPLE_JWT = {
     'BLACKLIST_AFTER_ROTATION': True,
 }
 
-# Password validation
+# endregion AUTH
+
+# region STORAGE
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+AWS_S3_SECURE_URLS = False
+AWS_QUERYSTRING_AUTH = False
+# endregion
+
+# region Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -122,9 +143,9 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+# endregion
 
-
-# Internationalization
+# region Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
 LANGUAGE_CODE = 'ko-kr'
@@ -136,14 +157,16 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+# endregion
 
-
-# Static files (CSS, JavaScript, Images)
+# region Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+# endregion
 
-# Default primary key field type
+# region Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+# endregion
