@@ -27,8 +27,7 @@ class UserListView(GenericAPIView, ListModelMixin):
 
     def get_queryset(self):
         UserModel = get_user_model()
-        # TODO: active User Manager?
-        return UserModel.objects.filter(is_active=True).order_by('id')
+        return UserModel.active_objects.order_by('id')
 
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)

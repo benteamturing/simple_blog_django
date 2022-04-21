@@ -31,7 +31,7 @@ class CustomUser(AbstractUser):
     first_name = None
     last_name = None
 
-    active_objects = CustomUserManager
+    active_objects = CustomUserManager()
 
     USERNAME_FIELD = 'email'
     EMAIL_FIELD = 'email'
