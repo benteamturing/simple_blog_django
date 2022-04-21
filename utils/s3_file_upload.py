@@ -54,7 +54,6 @@ class CustomS3Client:
         except:
             return None
 
-
 def get_s3_env_vars():
     """
     return S3 ACCESS_KEY_ID, SECRET_ACCESS_KEY, BUCKET_NAME as tuple
