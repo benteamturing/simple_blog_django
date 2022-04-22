@@ -10,6 +10,14 @@ from .serializers import ProfileSerializer
 
 
 class ProfileDetailView(APIView):
+    """
+    Profile Detail에 대해서 pk 값이 주어지면 read, update, delete가 가능하다.
+    permission: IsOwnerOrReadOnly custom permission을 config.permissions에서 import 했다
+    :Method GET: pk에 해당하는 profile object가 있는지 확인 후 가져온다.
+    :Method PUT: profile에서 수정하고자 하는 값을 가져온 후 partial update한다.
+    :Method DELETE: profile에 연결된 user model 인스턴스를 가져온 후 is_active를 False로 설정한다.
+    (DELETE는 위험한 method이므로 inactive로만 처리하고, 모델 매니저로 active_objects를 이용한다.)
+    """
     http_method_names = ['GET', 'PUT', 'DELETE']
 
     permission_classes = (IsOwnerOrReadOnly,)
