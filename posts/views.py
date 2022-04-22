@@ -63,6 +63,8 @@ class PostLatestListView(GenericAPIView, ListModelMixin):
 
     serializer_class = PostListSerializer
 
+    permission_classes = (permissions.AllowAny,)
+
     def get_queryset(self):
         return Post.active_objects.order_by('created')
 
@@ -70,12 +72,16 @@ class PostLatestListView(GenericAPIView, ListModelMixin):
         return self.list(request, *args, **kwargs)
 
 
-class PostProfileListView(GenericAPIView, ListModelMixin):
+class ProfilePostListView(GenericAPIView, ListModelMixin):
 
     serializer_class = PostListSerializer
 
+    permission_classes = (permissions.AllowAny,)
+
+    lookup_url_kwarg = 'profile_nickname'
+
     def get_queryset(self):
-        return Post.active_objects.filter(profile_id=self.lookup_field).order_by('created')
+        return Post.objects.order_by('created')
 
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
