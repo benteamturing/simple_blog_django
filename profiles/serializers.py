@@ -11,8 +11,7 @@ class ProfileSerializer(ModelSerializer):
     """
 
     # 이미지를 저장하고 있는 S3 저장소의 URL을 들고온다.
-    img_src = serializers.ReadOnlyField(source='absolute_image_url')
-    created = serializers.ReadOnlyField()
+    img_src = serializers.ImageField(source='absolute_image_url')
 
     class Meta:
         model = Profile
