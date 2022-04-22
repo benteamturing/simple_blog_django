@@ -4,6 +4,7 @@ from django.urls import path
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
 
 from accounts.views import SignupView, UserListView
+from posts.views import PostLatestListView, PostProfileListView, PostDetailView, PostCreateView
 from profiles.views import ProfileDetailView
 
 urlpatterns = [
@@ -18,4 +19,11 @@ urlpatterns = [
 
     # profile
     path('api/profile/<int:pk>/', ProfileDetailView.as_view()),
+
+    # post
+    path('api/post/', PostCreateView.as_view()),
+    path('api/post/<int:pk>', PostDetailView.as_view()),
+    # posts
+    path('api/posts/', PostLatestListView.as_view()),
+    path('api/posts/<int:pk>', PostProfileListView.as_view()),
 ]
