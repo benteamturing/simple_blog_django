@@ -4,11 +4,8 @@ from django.db import models
 
 class CustomUserManager(UserManager):
 
-    def get_query_set(self):
-        return super(
-            CustomUserManager,
-            self
-        ).get_query_set(
+    def get_queryset(self):
+        return super().get_queryset(
         ).filter(
             is_active=True
         )

@@ -47,8 +47,6 @@ class Profile(TimeStampedModel):
     )
 
     objects = models.Manager()
-    # 연결된 user가 active인 objects만 쿼리하는 매니저
-    # Todo: active model manager not working
     active_objects = CustomProfileManager()
 
     def __str__(self):
