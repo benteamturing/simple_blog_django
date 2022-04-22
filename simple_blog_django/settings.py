@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     # apps
     'accounts.apps.AccountsConfig',
     'profiles.apps.ProfilesConfig',
+    'posts.apps.PostsConfig',
 
     # storage
     'storages',
