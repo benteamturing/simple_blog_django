@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from rest_framework.permissions import BasePermission, SAFE_METHODS
 
-ADMIN_ROLE = '10'
+# ?
 
 
 class IsOwnerOnly(BasePermission):
@@ -27,7 +27,9 @@ class IsOwnerOrReadOnly(IsOwnerOnly):
 
 
 def admin_user_perm(request):
-    return request.user.role == ADMIN_ROLE
+    # error
+    # return request.user.role == ADMIN_ROLE
+    return False
 
 
 def object_owner_perm(request, obj):

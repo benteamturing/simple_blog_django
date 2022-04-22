@@ -11,8 +11,8 @@ class ActivePostManager(models.Manager):
 
 class Post(TimeStampedModel):
     """
-    created와 modified를 상속
-    게시판은 제목, 내용, 작성자로 구성되며
+    created와 modified를 상속을 통해 받음
+    게시판은 제목, 내용, 작성자로 구성된다.
     """
     title = models.CharField(
         max_length=40
