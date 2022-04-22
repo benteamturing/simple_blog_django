@@ -4,6 +4,7 @@ from django.urls import path
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
 
 from accounts.views import SignupView, UserListView
+from profiles.views import ProfileDetailView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -15,4 +16,6 @@ urlpatterns = [
     path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
     path('api/users/', UserListView.as_view()),
 
+    # profile
+    path('api/profile/<int:pk>/', ProfileDetailView.as_view()),
 ]

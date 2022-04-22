@@ -5,6 +5,7 @@ from datetime import timedelta
 from pathlib import Path
 
 # region SECRET_KEY
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Secret Key 설정
@@ -18,8 +19,10 @@ for key, value in secrets.items():
 
 # region DEBUG
 DEBUG = True
+# DEBUG = False
 
-ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = ['localhost']
+ALLOWED_HOST = []
 # endregion
 
 # region Application definition
@@ -35,10 +38,10 @@ INSTALLED_APPS = [
 
     # apps
     'accounts.apps.AccountsConfig',
-    #'profiles.apps.ProfilesConfig',
-    #'tags.apps.TagsConfig',
-    #'posts.apps.PostsConfig',
-    #'comments.apps.CommentsConfig',
+    'profiles.apps.ProfilesConfig',
+
+    # storage
+    'storages',
 
     # drf
     'rest_framework',
@@ -48,13 +51,6 @@ INSTALLED_APPS = [
     'dj_rest_auth',
     'dj_rest_auth.registration',
     'rest_framework_simplejwt.token_blacklist',
-
-    # django-allauth
-    'allauth',
-    'allauth.account',
-
-    # storages
-    'storages'
 ]
 # endregion
 
@@ -162,6 +158,8 @@ USE_TZ = True
 # region Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3StaticStorage'
+
 STATIC_URL = '/static/'
 # endregion
 
@@ -170,3 +168,4 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # endregion
+

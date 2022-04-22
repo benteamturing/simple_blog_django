@@ -15,6 +15,13 @@ class CustomUserManager(UserManager):
 
 
 class CustomUser(AbstractUser):
+    """
+    django 기본 인증 시스템을 이용하기 위한 User모델
+    소셜로그인 구현을 위해, username이 아닌 email을 unique identifier로 설정
+    username을 받지 않는 경우 django-admin page와 충돌이 일어나 받기는 받지만 쓰진 않음.
+    active한 계정을 불러오기 위해서는 active_objects를 이용한다.
+    user model을 부르기 위해서는 django.contrib.auth.get_user_model()을 이용해 호출한다.
+    """
     # email을 unique identifier로 설정한다.
     email = models.EmailField(
         verbose_name='email address',

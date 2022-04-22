@@ -5,7 +5,7 @@ from rest_framework.mixins import ListModelMixin
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from accounts.serializers import UserSignupSerializer, UserListSerializer
+from accounts.serializers import UserListSerializer, SignupSerializer
 
 
 class SignupView(APIView):
@@ -14,7 +14,7 @@ class SignupView(APIView):
     permission_classes = (permissions.AllowAny,)
 
     def post(self, *args, **kwargs):
-        serializer = UserSignupSerializer(data=self.request.data)
+        serializer = SignupSerializer(data=self.request.data)
         if serializer.is_valid():
             get_user_model().objects.create_user(**serializer.validated_data)
             return Response(status=status.HTTP_201_CREATED)

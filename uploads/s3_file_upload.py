@@ -8,6 +8,16 @@ AWS_REGION = settings.AWS_REGION
 
 
 class FileUpload:
+    """
+    CustomS3Client의 wrapping class
+    생성된 S3 client 클래스가 아닌 인스턴스를 import 하는 경우 구조의 명확성을 위해 추가
+
+    사용 예:
+    from storages.s3_file_upload import base_client, FileUpload
+
+    s3_client = FileUpload(base_client)
+    s3_client.upload(file)
+    """
     def __init__(self, client):
         self.client = client
 
@@ -17,13 +27,10 @@ class FileUpload:
 
 class CustomS3Client:
     """
-    attributes::
-    s3_client (boto3 client)
-    bucket_name
-
-    Methods::
-    initialization - access_key, secret_key, bucket_name (get_s3_env_vars()를 unpacking해서 사용)
-    upload - file을 input으로 가지며 s3에 업로드 후 s3 url을 return 한다.
+    boto3 s3 client 생성 로직
+    access_key, secret_key, bucket_name을 이용해 인스턴스를 생성한다.
+    (*get_s3_env_vars())를 input으로 생성하면된다.
+    self.upload(file)을 이용해 파일을 S3로 업로드하고 URL을 받는다.
     """
     def __init__(self, access_key, secret_key, bucket_name):
         boto3_s3 = boto3.client(
@@ -36,7 +43,7 @@ class CustomS3Client:
 
     def upload(self, file):
         """
-
+        request의 file을 받아 S3의 URL로 return한다.
         """
         try:
             file_id = get_file_id()
@@ -48,7 +55,7 @@ class CustomS3Client:
                 file_id,
                 ExtraArgs=file_content_type
             )
-            return f'http://{self.bucket_name}.s3.{AWS_REGION}.amazonaws.com/{file_id}'
+            return f'https://{self.bucket_name}.s3.{AWS_REGION}.amazonaws.com/{file_id}'
 
         # TODO: more specific exception error check
         except:
@@ -73,7 +80,5 @@ def get_file_id():
     return str(uuid.uuid4())
 
 
-# Question : class가 아닌 인스턴스를 선언 후 import 해도 괜찮을까?
-# 만약 매번 class를 호출해서 인스턴스를 생성한다면 client객체가 그만큼 생기는건데 이에 대한 aws의 제한사항이 있는가
-s3_client = CustomS3Client(*get_s3_env_vars())
+base_client = CustomS3Client(*get_s3_env_vars())
 
